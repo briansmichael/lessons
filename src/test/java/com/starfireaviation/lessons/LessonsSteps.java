@@ -16,8 +16,8 @@
 
 package com.starfireaviation.lessons;
 
-import com.starfireaviation.lessons.model.Lesson;
-import com.starfireaviation.model.CommonConstants;
+import com.starfireaviation.lessons.model.LessonEntity;
+import com.starfireaviation.common.CommonConstants;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -58,7 +58,7 @@ public class LessonsSteps {
 
     @Given("^I have a lesson$")
     public void iHaveALesson() throws Throwable {
-        testContext.setLesson(new Lesson());
+        testContext.setLesson(new LessonEntity());
     }
 
     @Given("^A lesson exists$")

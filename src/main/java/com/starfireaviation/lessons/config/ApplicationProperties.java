@@ -20,8 +20,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.Map;
-
 /**
  * Application Properties.
  */
@@ -30,7 +28,13 @@ import java.util.Map;
 @ConfigurationProperties("lessons")
 public class ApplicationProperties {
 
+    /**
+     * Read Timeout.
+     */
     private int readTimeout;
 
+    /**
+     * Connect Timeout.
+     */
     private int connectTimeout;
 }

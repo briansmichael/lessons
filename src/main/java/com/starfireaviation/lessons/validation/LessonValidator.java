@@ -16,13 +16,13 @@
 
 package com.starfireaviation.lessons.validation;
 
-import com.starfireaviation.lessons.exception.AccessDeniedException;
-import com.starfireaviation.lessons.exception.InvalidPayloadException;
-import com.starfireaviation.lessons.exception.ResourceNotFoundException;
-import com.starfireaviation.lessons.model.Lesson;
+import com.starfireaviation.common.exception.AccessDeniedException;
+import com.starfireaviation.common.exception.InvalidPayloadException;
+import com.starfireaviation.common.exception.ResourceNotFoundException;
+import com.starfireaviation.lessons.model.LessonEntity;
 import com.starfireaviation.lessons.service.DataService;
-import com.starfireaviation.model.Role;
-import com.starfireaviation.model.User;
+import com.starfireaviation.common.model.Role;
+import com.starfireaviation.common.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.security.Principal;
@@ -48,7 +48,7 @@ public class LessonValidator {
      * @param lesson Lesson
      * @throws InvalidPayloadException when lesson information is invalid
      */
-    public void validate(final Lesson lesson) throws InvalidPayloadException {
+    public void validate(final LessonEntity lesson) throws InvalidPayloadException {
         empty(lesson);
     }
 
@@ -58,7 +58,7 @@ public class LessonValidator {
      * @param lesson Lesson
      * @throws InvalidPayloadException when lesson plan is null
      */
-    private static void empty(final Lesson lesson) throws InvalidPayloadException {
+    private static void empty(final LessonEntity lesson) throws InvalidPayloadException {
         if (lesson == null) {
             String msg = "No lesson information was provided";
             log.warn(msg);
