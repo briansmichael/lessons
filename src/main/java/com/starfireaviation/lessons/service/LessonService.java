@@ -16,9 +16,9 @@
 
 package com.starfireaviation.lessons.service;
 
-import com.starfireaviation.groundschool.exception.ResourceNotFoundException;
-import com.starfireaviation.groundschool.model.Lesson;
-import com.starfireaviation.groundschool.model.LessonRepository;
+import com.starfireaviation.common.exception.ResourceNotFoundException;
+import com.starfireaviation.lessons.model.LessonEntity;
+import com.starfireaviation.lessons.model.LessonRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class LessonService {
      * @param lesson Lesson
      * @return Lesson
      */
-    public Lesson store(final Lesson lesson) {
+    public LessonEntity store(final LessonEntity lesson) {
         if (lesson == null) {
             return lesson;
         }
@@ -62,8 +62,8 @@ public class LessonService {
      * @param id Long
      * @return Lesson
      */
-    public Lesson delete(final long id) {
-        final Lesson lesson = get(id);
+    public LessonEntity delete(final long id) {
+        final LessonEntity lesson = get(id);
         if (lesson != null) {
             lessonRepository.delete(lesson);
         }
@@ -75,10 +75,10 @@ public class LessonService {
      *
      * @return list of Lesson
      */
-    public List<Lesson> getAll() {
-        final List<Lesson> lessons = new ArrayList<>();
-        final List<Lesson> lessonEntities = lessonRepository.findAll();
-        for (final Lesson lessonEntity : lessonEntities) {
+    public List<LessonEntity> getAll() {
+        final List<LessonEntity> lessons = new ArrayList<>();
+        final List<LessonEntity> lessonEntities = lessonRepository.findAll();
+        for (final LessonEntity lessonEntity : lessonEntities) {
             lessons.add(get(lessonEntity.getId()));
         }
         return lessons;
@@ -90,7 +90,7 @@ public class LessonService {
      * @param userId User ID
      * @return list of Lesson
      */
-    public List<Lesson> getAttendedLessons(final Long userId) {
+    public List<LessonEntity> getAttendedLessons(final Long userId) {
         return new ArrayList<>();
     }
 
@@ -100,7 +100,7 @@ public class LessonService {
      * @param id Long
      * @return Lesson
      */
-    public Lesson get(final long id) {
+    public LessonEntity get(final long id) {
         return lessonRepository.findById(id);
     }
 
@@ -112,7 +112,7 @@ public class LessonService {
     public List<String> getAllCourses() {
         return getAll()
                 .stream()
-                .map(Lesson::getCourse)
+                .map(LessonEntity::getCourse)
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
@@ -125,7 +125,7 @@ public class LessonService {
      * @return list of Lesson
      * @throws ResourceNotFoundException when course is not found
      */
-    public List<Lesson> getLessonsByCourse(final String course) throws ResourceNotFoundException {
+    public List<LessonEntity> getLessonsByCourse(final String course) throws ResourceNotFoundException {
         if (course == null) {
             throw new ResourceNotFoundException(String.format("No course found for [%s]", course));
         }

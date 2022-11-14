@@ -17,6 +17,11 @@
 package com.starfireaviation.lessons.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hazelcast.config.Config;
+import com.hazelcast.config.MapConfig;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.starfireaviation.common.CommonConstants;
 import com.starfireaviation.lessons.model.LessonRepository;
 import com.starfireaviation.lessons.service.DataService;
 import com.starfireaviation.lessons.service.LessonService;
@@ -100,6 +105,20 @@ public class ServiceConfig {
                 .setReadTimeout(Duration.ofMillis(props.getReadTimeout()))
                 .additionalMessageConverters(new MappingJackson2HttpMessageConverter())
                 .build();
+    }
+
+    /**
+     * Hazelcast Questions Instance.
+     *
+     * @return HazelcastInstance
+     */
+    @Bean("lessons")
+    public HazelcastInstance hazelcastLessonsInstance() {
+        return Hazelcast.newHazelcastInstance(
+                new Config().addMapConfig(
+                        new MapConfig("lessons")
+                                .setTimeToLiveSeconds(CommonConstants.THREE_HUNDRED)
+                                .setMaxIdleSeconds(CommonConstants.THREE_HUNDRED)));
     }
 
     /**

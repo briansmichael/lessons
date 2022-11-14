@@ -16,7 +16,7 @@
 
 package com.starfireaviation.lessons.model;
 
-import com.starfireaviation.model.CommonConstants;
+import com.starfireaviation.common.CommonConstants;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -36,7 +36,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "LESSON")
-public class Lesson implements Serializable {
+public class LessonEntity implements Serializable {
 
     /**
      * Default SerialVersionUID.
@@ -71,16 +71,10 @@ public class Lesson implements Serializable {
     private String course;
 
     /**
-     * Unit.
+     * Chapter.
      */
-    @Column(name = "unit", nullable = false, length = CommonConstants.FIVE_HUNDRED)
-    private String unit;
-
-    /**
-     * SubUnit.
-     */
-    @Column(name = "sub_unit", length = CommonConstants.FIVE_HUNDRED)
-    private String subUnit;
+    @Column(name = "unit", nullable = false)
+    private Long chapter;
 
     /**
      * Text.

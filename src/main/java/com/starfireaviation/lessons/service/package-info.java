@@ -15,6 +15,6 @@
  */
 
 /**
- * Model classes.
+ * Service classes.
  */
-package com.starfireaviation.lessons.exception;
+package com.starfireaviation.lessons.service;

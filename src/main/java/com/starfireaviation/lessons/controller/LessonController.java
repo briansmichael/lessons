@@ -16,10 +16,10 @@
 
 package com.starfireaviation.lessons.controller;
 
-import com.starfireaviation.lessons.exception.AccessDeniedException;
-import com.starfireaviation.lessons.exception.InvalidPayloadException;
-import com.starfireaviation.lessons.exception.ResourceNotFoundException;
-import com.starfireaviation.lessons.model.Lesson;
+import com.starfireaviation.common.exception.AccessDeniedException;
+import com.starfireaviation.common.exception.InvalidPayloadException;
+import com.starfireaviation.common.exception.ResourceNotFoundException;
+import com.starfireaviation.lessons.model.LessonEntity;
 import com.starfireaviation.lessons.service.LessonService;
 import com.starfireaviation.lessons.validation.LessonValidator;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -40,9 +40,7 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping({
-        "/lessons"
-})
+@RequestMapping({ "/api/lessons" })
 public class LessonController {
 
     /**
@@ -73,13 +71,12 @@ public class LessonController {
      * @param lesson    Lesson
      * @param principal Principal
      * @return Lesson
-     * @throws ResourceNotFoundException when user is not found
      * @throws AccessDeniedException     when user doesn't have permission to
      *                                   perform operation
      * @throws InvalidPayloadException   when invalid data is provided
      */
     @PostMapping
-    public Lesson post(@RequestBody final Lesson lesson, final Principal principal) throws ResourceNotFoundException,
+    public LessonEntity post(@RequestBody final LessonEntity lesson, final Principal principal) throws
             AccessDeniedException, InvalidPayloadException {
         lessonValidator.validate(lesson);
         lessonValidator.accessAdminOrInstructor(principal);
@@ -99,7 +96,7 @@ public class LessonController {
     @GetMapping(path = {
             "/{lessonId}"
     })
-    public Lesson get(@PathVariable("lessonId") final long lessonId, final Principal principal)
+    public LessonEntity get(@PathVariable("lessonId") final long lessonId, final Principal principal)
             throws ResourceNotFoundException, AccessDeniedException {
         lessonValidator.accessAnyAuthenticated(principal);
         return lessonService.get(lessonId);
@@ -111,14 +108,13 @@ public class LessonController {
      * @param lesson    Lesson
      * @param principal Principal
      * @return Lesson
-     * @throws ResourceNotFoundException when user is not found
      * @throws AccessDeniedException     when user doesn't have permission to
      *                                   perform operation
      * @throws InvalidPayloadException   when invalid data is provided
      */
     @PutMapping
-    public Lesson put(@RequestBody final Lesson lesson, final Principal principal) throws InvalidPayloadException,
-            ResourceNotFoundException, AccessDeniedException {
+    public LessonEntity put(@RequestBody final LessonEntity lesson, final Principal principal)
+            throws InvalidPayloadException, AccessDeniedException {
         lessonValidator.validate(lesson);
         lessonValidator.accessAdminOrInstructor(principal);
         return lessonService.store(lesson);
@@ -130,15 +126,14 @@ public class LessonController {
      * @param lessonId  Long
      * @param principal Principal
      * @return Lesson
-     * @throws ResourceNotFoundException when lesson is not found
      * @throws AccessDeniedException     when user doesn't have permission to
      *                                   perform operation
      */
     @DeleteMapping(path = {
             "/{lessonId}"
     })
-    public Lesson delete(@PathVariable("lessonId") final long lessonId, final Principal principal)
-            throws ResourceNotFoundException, AccessDeniedException {
+    public LessonEntity delete(@PathVariable("lessonId") final long lessonId, final Principal principal)
+            throws AccessDeniedException {
         lessonValidator.accessAdminOrInstructor(principal);
         return lessonService.delete(lessonId);
     }
@@ -155,7 +150,8 @@ public class LessonController {
     @GetMapping(path = {
             "/{userId}/attended"
     })
-    public List<Lesson> getAllAttendedLessons(@PathVariable("userId") final long userId, final Principal principal)
+    public List<LessonEntity> getAllAttendedLessons(@PathVariable("userId") final long userId,
+                                                    final Principal principal)
             throws AccessDeniedException {
         lessonValidator.accessAdminInstructorOrSpecificUser(userId, principal);
         return lessonService.getAttendedLessons(userId);
@@ -174,7 +170,8 @@ public class LessonController {
     @GetMapping(path = {
             "/all/{course}"
     })
-    public List<Lesson> getAllLessonsByCourse(@PathVariable("course") final String course, final Principal principal)
+    public List<LessonEntity> getAllLessonsByCourse(@PathVariable("course") final String course,
+                                                    final Principal principal)
             throws ResourceNotFoundException, AccessDeniedException {
         lessonValidator.accessAnyAuthenticated(principal);
         return lessonService.getLessonsByCourse(course);
@@ -207,7 +204,7 @@ public class LessonController {
      *                                   perform operation
      */
     @GetMapping
-    public List<Lesson> list(final Principal principal) throws ResourceNotFoundException, AccessDeniedException {
+    public List<LessonEntity> list(final Principal principal) throws ResourceNotFoundException, AccessDeniedException {
         lessonValidator.accessAdminOrInstructor(principal);
         return lessonService.getAll();
     }

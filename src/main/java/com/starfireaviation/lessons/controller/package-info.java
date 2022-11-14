@@ -14,16 +14,7 @@
  *  limitations under the License.
  */
 
-package com.starfireaviation.lessons;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-@SpringBootTest
-class LessonsApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+/**
+ * Controller classes.
+ */
+package com.starfireaviation.lessons.controller;

@@ -16,7 +16,7 @@
 
 package com.starfireaviation.lessons;
 
-import com.starfireaviation.lessons.model.Lesson;
+import com.starfireaviation.lessons.model.LessonEntity;
 import lombok.Data;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -28,7 +28,7 @@ public class TestContext {
     /**
      * Lesson.
      */
-    private Lesson lesson;
+    private LessonEntity lesson;
 
     /**
      * Response.

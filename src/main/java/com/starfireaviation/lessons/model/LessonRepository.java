@@ -23,21 +23,21 @@ import java.util.List;
 /**
  * LessonRepository.
  */
-public interface LessonRepository extends Repository<Lesson, Long> {
+public interface LessonRepository extends Repository<LessonEntity, Long> {
 
     /**
      * Deletes a lesson.
      *
      * @param lesson LessonEntity
      */
-    void delete(Lesson lesson);
+    void delete(LessonEntity lesson);
 
     /**
      * Gets all lesson.
      *
      * @return list of LessonEntity
      */
-    List<Lesson> findAll();
+    List<LessonEntity> findAll();
 
     /**
      * Gets a lesson.
@@ -45,7 +45,7 @@ public interface LessonRepository extends Repository<Lesson, Long> {
      * @param id Long
      * @return LessonEntity
      */
-    Lesson findById(long id);
+    LessonEntity findById(long id);
 
     /**
      * Saves a lesson.
@@ -53,5 +53,5 @@ public interface LessonRepository extends Repository<Lesson, Long> {
      * @param lesson LessonEntity
      * @return LessonEntity
      */
-    Lesson save(Lesson lesson);
+    LessonEntity save(LessonEntity lesson);
 }
