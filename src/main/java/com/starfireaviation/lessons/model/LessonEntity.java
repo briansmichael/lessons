@@ -67,8 +67,8 @@ public class LessonEntity implements Serializable {
     /**
      * Course.
      */
-    @Column(name = "course", nullable = false, length = CommonConstants.FIVE_HUNDRED)
-    private String course;
+    @Column(name = "group", nullable = false, length = CommonConstants.FIVE_HUNDRED)
+    private String group;
 
     /**
      * Chapter.

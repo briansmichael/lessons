@@ -20,9 +20,7 @@ import com.starfireaviation.common.exception.ResourceNotFoundException;
 import com.starfireaviation.lessons.model.LessonEntity;
 import com.starfireaviation.lessons.model.LessonRepository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * LessonService.
@@ -50,9 +48,6 @@ public class LessonService {
      * @return Lesson
      */
     public LessonEntity store(final LessonEntity lesson) {
-        if (lesson == null) {
-            return lesson;
-        }
         return lessonRepository.save(lesson);
     }
 
@@ -62,7 +57,7 @@ public class LessonService {
      * @param id Long
      * @return Lesson
      */
-    public LessonEntity delete(final long id) {
+    public LessonEntity delete(final Long id) {
         final LessonEntity lesson = get(id);
         if (lesson != null) {
             lessonRepository.delete(lesson);
@@ -76,22 +71,7 @@ public class LessonService {
      * @return list of Lesson
      */
     public List<LessonEntity> getAll() {
-        final List<LessonEntity> lessons = new ArrayList<>();
-        final List<LessonEntity> lessonEntities = lessonRepository.findAll();
-        for (final LessonEntity lessonEntity : lessonEntities) {
-            lessons.add(get(lessonEntity.getId()));
-        }
-        return lessons;
-    }
-
-    /**
-     * Gets all lessons attended by a participant.
-     *
-     * @param userId User ID
-     * @return list of Lesson
-     */
-    public List<LessonEntity> getAttendedLessons(final Long userId) {
-        return new ArrayList<>();
+        return lessonRepository.findAll();
     }
 
     /**
@@ -100,39 +80,22 @@ public class LessonService {
      * @param id Long
      * @return Lesson
      */
-    public LessonEntity get(final long id) {
-        return lessonRepository.findById(id);
-    }
-
-    /**
-     * Gets all courses.
-     *
-     * @return list of course names
-     */
-    public List<String> getAllCourses() {
-        return getAll()
-                .stream()
-                .map(LessonEntity::getCourse)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+    public LessonEntity get(final Long id) {
+        return lessonRepository.findById(id).orElseThrow();
     }
 
     /**
      * Gets all lessons for the given course.
      *
-     * @param course name
+     * @param group name
      * @return list of Lesson
      * @throws ResourceNotFoundException when course is not found
      */
-    public List<LessonEntity> getLessonsByCourse(final String course) throws ResourceNotFoundException {
-        if (course == null) {
-            throw new ResourceNotFoundException(String.format("No course found for [%s]", course));
+    public List<LessonEntity> getLessonsByGroup(final String group) throws ResourceNotFoundException {
+        if (group == null) {
+            throw new ResourceNotFoundException(String.format("No group found for [%s]", group));
         }
-        return getAll()
-                .stream()
-                .filter(lesson -> course.equals(lesson.getCourse()))
-                .collect(Collectors.toList());
+        return lessonRepository.findByGroup(group).orElseThrow();
     }
 
 }

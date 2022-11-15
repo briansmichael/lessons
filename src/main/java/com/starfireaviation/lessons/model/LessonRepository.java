@@ -19,6 +19,7 @@ package com.starfireaviation.lessons.model;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * LessonRepository.
@@ -45,7 +46,15 @@ public interface LessonRepository extends Repository<LessonEntity, Long> {
      * @param id Long
      * @return LessonEntity
      */
-    LessonEntity findById(long id);
+    Optional<LessonEntity> findById(Long id);
+
+    /**
+     * Finds Lesson by group.
+     *
+     * @param group group
+     * @return list of Lesson
+     */
+    Optional<List<LessonEntity>> findByGroup(String group);
 
     /**
      * Saves a lesson.
