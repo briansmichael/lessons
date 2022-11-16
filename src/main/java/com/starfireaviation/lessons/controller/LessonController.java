@@ -198,6 +198,7 @@ public class LessonController {
         lesson.setChapter(lessonEntity.getChapter());
         lesson.setGroup(lessonEntity.getGroup());
         lesson.setId(lessonEntity.getId());
+        lesson.setTitle(lessonEntity.getTitle());
         lesson.setText(lessonEntity.getText());
         lesson.setRequired(lessonEntity.isRequired());
         lesson.setCreatedAt(lessonEntity.getCreatedAt());
@@ -217,6 +218,7 @@ public class LessonController {
         lessonEntity.setGroup(lesson.getGroup());
         lessonEntity.setId(lesson.getId());
         lessonEntity.setText(lesson.getText());
+        lessonEntity.setTitle(lesson.getTitle());
         lessonEntity.setRequired(lesson.isRequired());
         lessonEntity.setCreatedAt(lesson.getCreatedAt());
         lessonEntity.setUpdatedAt(lesson.getUpdatedAt());

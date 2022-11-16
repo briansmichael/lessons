@@ -77,6 +77,12 @@ public class LessonEntity implements Serializable {
     private Long chapter;
 
     /**
+     * Title.
+     */
+    @Column(name = "title")
+    private String title;
+
+    /**
      * Text.
      */
     @Column(name = "text", length = CommonConstants.FOUR_THOUSAND)
