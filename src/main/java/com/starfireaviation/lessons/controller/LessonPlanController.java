@@ -21,9 +21,7 @@ import com.hazelcast.map.IMap;
 import com.starfireaviation.common.exception.AccessDeniedException;
 import com.starfireaviation.common.exception.InvalidPayloadException;
 import com.starfireaviation.common.exception.ResourceNotFoundException;
-import com.starfireaviation.common.model.Activity;
 import com.starfireaviation.common.model.LessonPlan;
-import com.starfireaviation.lessons.model.ActivityEntity;
 import com.starfireaviation.lessons.model.LessonPlanEntity;
 import com.starfireaviation.lessons.service.LessonPlanService;
 import com.starfireaviation.lessons.validation.LessonPlanValidator;
@@ -224,39 +222,4 @@ public class LessonPlanController {
         return lessonPlanEntity;
     }
 
-    /**
-     * Maps an ActivityEntity to an Activity.
-     *
-     * @param activityEntity ActivityEntity
-     * @return Activity
-     */
-    private Activity map(final ActivityEntity activityEntity) {
-        final Activity activity = new Activity();
-        activity.setTitle(activityEntity.getTitle());
-        activity.setId(activityEntity.getId());
-        activity.setActivityType(activityEntity.getActivityType());
-        activity.setDuration(activityEntity.getDuration());
-        activity.setCreatedAt(activityEntity.getCreatedAt());
-        activity.setUpdatedAt(activityEntity.getUpdatedAt());
-        activity.setReferenceId(activityEntity.getReferenceId());
-        return activity;
-    }
-
-    /**
-     * Maps an Activity to an ActivityEntity.
-     *
-     * @param activity Activity
-     * @return ActivityEntity
-     */
-    private ActivityEntity map(final Activity activity) {
-        final ActivityEntity activityEntity = new ActivityEntity();
-        activityEntity.setTitle(activity.getTitle());
-        activityEntity.setId(activity.getId());
-        activityEntity.setActivityType(activity.getActivityType());
-        activityEntity.setDuration(activity.getDuration());
-        activityEntity.setCreatedAt(activity.getCreatedAt());
-        activityEntity.setUpdatedAt(activity.getUpdatedAt());
-        activityEntity.setReferenceId(activity.getReferenceId());
-        return activityEntity;
-    }
 }
