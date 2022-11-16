@@ -65,9 +65,9 @@ public class LessonEntity implements Serializable {
     private Date updatedAt = new Date();
 
     /**
-     * Course.
+     * Group.
      */
-    @Column(name = "group", nullable = false, length = CommonConstants.FIVE_HUNDRED)
+    @Column(name = "grp", nullable = false)
     private String group;
 
     /**
