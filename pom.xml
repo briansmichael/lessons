@@ -32,7 +32,7 @@
 	<description>Lessons</description>
 	<properties>
 		<java.version>11</java.version>
-		<sa.common.version>0.1.5</sa.common.version>
+		<sa.common.version>0.1.6</sa.common.version>
 		<cucumber.version>7.8.1</cucumber.version>
 		<hazelcast.version>5.2.0</hazelcast.version>
 		<springdoc.version>1.6.11</springdoc.version>

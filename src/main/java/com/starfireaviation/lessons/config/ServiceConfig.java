@@ -22,8 +22,12 @@ import com.hazelcast.config.MapConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.starfireaviation.common.CommonConstants;
+import com.starfireaviation.lessons.model.LessonPlanActivityRepository;
+import com.starfireaviation.lessons.model.LessonPlanLessonRepository;
+import com.starfireaviation.lessons.model.LessonPlanRepository;
 import com.starfireaviation.lessons.model.LessonRepository;
 import com.starfireaviation.lessons.service.DataService;
+import com.starfireaviation.lessons.service.LessonPlanService;
 import com.starfireaviation.lessons.service.LessonService;
 import com.starfireaviation.lessons.validation.LessonValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -54,6 +58,21 @@ public class ServiceConfig {
     @Bean
     public LessonService lessonService(final LessonRepository lRepository) {
         return new LessonService(lRepository);
+    }
+
+    /**
+     * LessonPlanService.
+     *
+     * @param lpRepository LessonPlanRepository
+     * @param lpaRepository LessonPlanActivityRepository
+     * @param lplRepository LessonPlanLessonRepository
+     * @return LessonPlanService
+     */
+    @Bean
+    public LessonPlanService lessonPlanService(final LessonPlanRepository lpRepository,
+                                               final LessonPlanActivityRepository lpaRepository,
+                                               final LessonPlanLessonRepository lplRepository) {
+        return new LessonPlanService(lpRepository, lpaRepository, lplRepository);
     }
 
     /**
@@ -117,6 +136,34 @@ public class ServiceConfig {
         return Hazelcast.newHazelcastInstance(
                 new Config().addMapConfig(
                         new MapConfig("lessons")
+                                .setTimeToLiveSeconds(CommonConstants.THREE_HUNDRED)
+                                .setMaxIdleSeconds(CommonConstants.THREE_HUNDRED)));
+    }
+
+    /**
+     * Hazelcast LessonPlans Instance.
+     *
+     * @return HazelcastInstance
+     */
+    @Bean("lessonplans")
+    public HazelcastInstance hazelcastLessonPlansInstance() {
+        return Hazelcast.newHazelcastInstance(
+                new Config().addMapConfig(
+                        new MapConfig("lessonplans")
+                                .setTimeToLiveSeconds(CommonConstants.THREE_HUNDRED)
+                                .setMaxIdleSeconds(CommonConstants.THREE_HUNDRED)));
+    }
+
+    /**
+     * Hazelcast LessonPlans Instance.
+     *
+     * @return HazelcastInstance
+     */
+    @Bean("activities")
+    public HazelcastInstance hazelcastActivitiesInstance() {
+        return Hazelcast.newHazelcastInstance(
+                new Config().addMapConfig(
+                        new MapConfig("activities")
                                 .setTimeToLiveSeconds(CommonConstants.THREE_HUNDRED)
                                 .setMaxIdleSeconds(CommonConstants.THREE_HUNDRED)));
     }
