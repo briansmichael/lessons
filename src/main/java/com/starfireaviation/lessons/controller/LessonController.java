@@ -92,7 +92,7 @@ public class LessonController {
     public Lesson post(@RequestBody final Lesson lesson, final Principal principal)
             throws AccessDeniedException, InvalidPayloadException {
         lessonValidator.validate(lesson);
-        lessonValidator.accessAdminOrInstructor(principal);
+        //lessonValidator.accessAdminOrInstructor(principal);
         final Lesson newLesson = map(lessonService.store(map(lesson)));
         cache.put(newLesson.getId(), newLesson);
         return newLesson;
@@ -110,7 +110,7 @@ public class LessonController {
     @GetMapping(path = { "/{lessonId}" })
     public Lesson get(@PathVariable("lessonId") final Long lessonId, final Principal principal)
             throws AccessDeniedException {
-        lessonValidator.accessAnyAuthenticated(principal);
+        //lessonValidator.accessAnyAuthenticated(principal);
         if (cache.containsKey(lessonId)) {
             return cache.get(lessonId);
         }
@@ -133,7 +133,7 @@ public class LessonController {
     public Lesson put(@RequestBody final Lesson lesson, final Principal principal)
             throws InvalidPayloadException, AccessDeniedException {
         lessonValidator.validate(lesson);
-        lessonValidator.accessAdminOrInstructor(principal);
+        //lessonValidator.accessAdminOrInstructor(principal);
         final Lesson updatedLesson = map(lessonService.store(map(lesson)));
         cache.put(updatedLesson.getId(), updatedLesson);
         return updatedLesson;
@@ -150,7 +150,7 @@ public class LessonController {
     @DeleteMapping(path = { "/{lessonId}" })
     public void delete(@PathVariable("lessonId") final Long lessonId, final Principal principal)
             throws AccessDeniedException {
-        lessonValidator.accessAdminOrInstructor(principal);
+        //lessonValidator.accessAdminOrInstructor(principal);
         lessonService.delete(lessonId);
         cache.delete(lessonId);
     }
@@ -169,7 +169,7 @@ public class LessonController {
     public List<Lesson> getAllLessonsByGroup(@PathVariable("group") final String group,
                                              final Principal principal)
             throws ResourceNotFoundException, AccessDeniedException {
-        lessonValidator.accessAnyAuthenticated(principal);
+        //lessonValidator.accessAnyAuthenticated(principal);
         return lessonService.getLessonsByGroup(group).stream().map(this::map).collect(Collectors.toList());
     }
 
@@ -183,7 +183,7 @@ public class LessonController {
      */
     @GetMapping
     public List<Lesson> list(final Principal principal) throws AccessDeniedException {
-        lessonValidator.accessAdminOrInstructor(principal);
+        //lessonValidator.accessAdminOrInstructor(principal);
         return lessonService.getAll().stream().map(this::map).collect(Collectors.toList());
     }
 

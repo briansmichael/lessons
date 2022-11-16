@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
  */
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping({ "/lessonplans" })
+@RequestMapping({ "/api/lessonplans" })
 public class LessonPlanController {
 
     /**
