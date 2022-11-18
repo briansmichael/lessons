@@ -118,4 +118,10 @@ public class LessonPlanEntity implements Serializable {
     @Column(name = "completion_standards", length = CommonConstants.TWO_THOUSAND)
     private String completionStandards;
 
+    /**
+     * Presentable flag.
+     */
+    @Column(name = "presentable")
+    private boolean presentable;
+
 }

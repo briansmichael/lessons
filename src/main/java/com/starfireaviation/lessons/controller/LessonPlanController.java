@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -163,18 +164,21 @@ public class LessonPlanController {
     /**
      * Get all lessonPlans.
      *
+     * @param presentable Presentable flag
      * @param principal Principal
-     * @return list of LessonPlans
+     * @return list of LessonPlan IDs
      * @throws ResourceNotFoundException when lesson plan is not found
      * @throws AccessDeniedException     when user doesn't have permission to
      *                                   perform operation
      */
     @GetMapping
-    public List<LessonPlan> list(final Principal principal) throws ResourceNotFoundException, AccessDeniedException {
+    public List<Long> list(@RequestParam(value = "presentable", required = false) final Boolean presentable,
+                           final Principal principal) throws ResourceNotFoundException, AccessDeniedException {
         lessonPlanValidator.accessAdminOrInstructor(principal);
         return lessonPlanService.getAll()
                 .stream()
-                .map(this::map)
+                .filter(lp -> !presentable || presentable == lp.isPresentable())
+                .map(LessonPlanEntity::getId)
                 .collect(Collectors.toList());
     }
 
